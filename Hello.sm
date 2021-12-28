@@ -1,0 +1,36 @@
+// 指定初始状态
+%start HelloMap::Idle
+// 实体对象
+%class Hello
+// 实体对象头文件
+%header Hello.h
+// 存放状态对象的类
+%map HelloMap
+%%
+// State Transition End State Action(s)
+Idle
+//Entry { sayHello(); }
+//Exit {}
+{
+receiveBuff(buff: char*) //填写到其它状态的逻辑
+Busy
+{ProcessReceive(buff);}
+Default
+nil
+{ProcessDefault();}
+}
+Busy
+//Entry {}
+//Exit {}
+{
+receiveBuff(buff: char*) //填写到其它状态的逻辑
+Busy
+{}
+receiveSpecial(buff: char*)
+Idle
+{Process(buff);}
+Default
+nil
+{ProcessDefault();}
+}
+%%
